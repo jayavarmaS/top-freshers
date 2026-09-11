@@ -60,9 +60,10 @@ header {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: linear-gradient(90deg, rgba(125, 173, 95, 0.18), rgba(78, 167, 216, 0.12), rgba(239, 182, 93, 0.12));
+  background: rgba(247, 244, 239, 0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+  box-shadow: 0 1px 0 rgba(23, 23, 23, 0.04);
 }
 
 .nav-shell {
