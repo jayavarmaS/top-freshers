@@ -71,7 +71,7 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding: 18px 0;
+  padding: 10px 0;
 }
 
 .brand-wrap {
@@ -99,7 +99,7 @@ header {
 }
 
 .brand-logo {
-  width: min(180px, 22vw);
+  width: min(150px, 18vw);
   height: auto;
 }
 
@@ -179,6 +179,11 @@ header {
   border: none;
   border-radius: 999px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-login,
+.nav-cta {
+  padding: 0.54rem 1rem;
 }
 
 .nav-login,
