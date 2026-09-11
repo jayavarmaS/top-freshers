@@ -52,7 +52,7 @@ button {
 section,
 footer,
 header {
-  width: min(1280px, calc(100% - 40px));
+  width: 100%;
   margin-inline: auto;
 }
 
@@ -70,8 +70,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 10px 0;
+  gap: 14px;
+  width: min(1280px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 6px 0;
 }
 
 .brand-wrap {
@@ -99,7 +101,7 @@ header {
 }
 
 .brand-logo {
-  width: min(150px, 18vw);
+  width: min(120px, 16vw);
   height: auto;
 }
 
@@ -183,7 +185,7 @@ header {
 
 .nav-login,
 .nav-cta {
-  padding: 0.54rem 1rem;
+  padding: 0.42rem 0.9rem;
 }
 
 .nav-login,
