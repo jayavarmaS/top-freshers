@@ -1721,29 +1721,44 @@ header {
   .hero-section,
   .how-it-works-section,
   .career-map-section,
-  .cta-section {
+  .cta-section,
+  .page-hero,
+  .contact-content {
     grid-template-columns: 1fr;
   }
 
   .hero-copy,
   .career-map-copy,
-  .cta-copy {
+  .cta-copy,
+  .page-hero-copy {
     text-align: center;
   }
 
   .hero-actions,
   .cta-actions,
-  .stats-row {
+  .stats-row,
+  .page-hero-actions,
+  .page-stats {
     justify-content: center;
+  }
+
+  .page-hero-copy {
+    align-items: center;
   }
 
   .hero-visual-wrap {
     min-height: 540px;
   }
 
-  .section-actions {
+  .section-actions,
+  .section-head {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .page-hero-pills {
+    right: 12px;
+    bottom: 18px;
   }
 
   .footer-top {
@@ -1753,14 +1768,28 @@ header {
 
 @media (max-width: 820px) {
   .path-grid,
+  .course-grid,
   .jobs-grid,
   .stories-grid,
   .footer-top {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
   .steps-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact-content {
+    gap: 28px;
+  }
+
+  .contact-left,
+  .contact-form-wrap {
+    width: 100%;
   }
 
   .footer-bottom {
@@ -1779,6 +1808,12 @@ header {
   .nav-shell {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 14px;
+  }
+
+  .brand-wrap {
+    width: 100%;
+    justify-content: center;
   }
 
   .nav-actions {
@@ -1791,18 +1826,22 @@ header {
   }
 
   .path-grid,
+  .course-grid,
   .jobs-grid,
   .stories-grid,
   .footer-top,
-  .map-grid {
+  .map-grid,
+  .resource-grid {
     grid-template-columns: 1fr;
   }
 
-  .hero-visual-wrap {
-    min-height: 420px;
+  .section-header {
+    align-items: flex-start;
   }
 
-  .hero-visual {
+  .hero-visual-wrap,
+  .hero-visual,
+  .page-hero-visual {
     min-height: 420px;
   }
 
@@ -1823,7 +1862,33 @@ header {
     width: 120px;
   }
 
+  .page-hero-pills {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .page-hero-card-top,
+  .page-hero-card-side {
+    display: none;
+  }
+
   .journey-title-block {
     font-size: 1.7rem;
+  }
+
+  .contact-page-shell {
+    padding-top: 22px;
+  }
+
+  .contact-hero h1 {
+    font-size: 2.7rem;
+  }
+
+  .contact-item {
+    align-items: center;
   }
 }
