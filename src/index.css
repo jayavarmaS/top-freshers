@@ -1627,15 +1627,15 @@ header {
 .cta-section {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
   align-items: center;
-  gap: 28px;
-  min-height: 440px;
-  padding: 52px 48px 36px;
+  gap: 10px;
+  min-height: 560px;
+  padding: 38px 30px 26px;
   border-radius: 0;
   overflow: hidden;
   isolation: isolate;
-  background: #ffffff url("/yellowandrose.png") center / cover no-repeat;
+  background: #ffffff url("/upperyellowandrose.png") center / cover no-repeat;
 }
 
 .cta-section::before,
@@ -1650,7 +1650,7 @@ header {
 }
 
 .cta-copy {
-  padding: 8px 0 8px 12px;
+  padding: 8px 0 8px 28px;
   z-index: 2;
 }
 
@@ -1658,7 +1658,7 @@ header {
   max-width: 560px;
   color: #070707;
   font-family: "Arial Black", Arial, sans-serif;
-  font-size: clamp(2.8rem, 4.4vw, 5.4rem);
+  font-size: clamp(2.5rem, 3.8vw, 4.9rem);
   line-height: 0.9;
   letter-spacing: -0.055em;
   text-shadow: none;
@@ -1680,7 +1680,8 @@ header {
 }
 
 .cta-illustration {
-  min-height: 360px;
+  position: relative;
+  min-height: 510px;
   display: flex;
   justify-content: center;
   align-items: end;
@@ -1689,12 +1690,37 @@ header {
   z-index: 2;
 }
 
-.cta-illustration img {
+.cta-student-image {
   position: relative;
-  z-index: 1;
-  width: min(100%, 620px);
-  margin-left: 20px;
+  z-index: 2;
+  width: min(76%, 620px);
+  margin: 0 12% 0 0;
   filter: drop-shadow(0 18px 20px rgba(17, 17, 17, 0.14));
+}
+
+.cta-ladder-image {
+  position: absolute;
+  right: -2%;
+  bottom: 16px;
+  z-index: 3;
+  width: min(34%, 320px);
+  filter: drop-shadow(0 12px 16px rgba(17, 17, 17, 0.14));
+}
+
+.cta-laptop-message {
+  position: absolute;
+  right: 31%;
+  bottom: 108px;
+  z-index: 4;
+  color: #111;
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  font-size: clamp(0.62rem, 0.95vw, 0.9rem);
+  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
+  white-space: nowrap;
+  transform: rotate(-4deg);
+  pointer-events: none;
 }
 
 .site-footer {
@@ -1976,5 +2002,40 @@ header {
 
   .contact-item {
     align-items: center;
+  }
+
+  .cta-section {
+    min-height: 720px;
+    padding: 34px 18px 20px;
+  }
+
+  .cta-copy {
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .cta-copy h2 {
+    margin-inline: auto;
+  }
+
+  .cta-illustration {
+    min-height: 430px;
+  }
+
+  .cta-student-image {
+    width: min(100%, 500px);
+    margin-right: 8%;
+  }
+
+  .cta-ladder-image {
+    right: -4%;
+    bottom: 10px;
+    width: min(38%, 190px);
+  }
+
+  .cta-laptop-message {
+    right: 28%;
+    bottom: 92px;
+    font-size: 0.62rem;
   }
 }
