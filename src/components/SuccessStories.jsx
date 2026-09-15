@@ -35,9 +35,9 @@ export default function SuccessStories() {
       </p>
 
       <div className="stories-grid">
-        {stories.map((story) => (
+        {stories.map((story, index) => (
           <article className="story-card" key={story.name}>
-            <img src={story.image} alt={story.name} />
+            <img className={`story-image story-image-${index + 1}`} src={story.image} alt={story.name} />
             <p className="quote">“{story.quote}”</p>
             <div className="story-person">
               <strong>{story.name}</strong>
