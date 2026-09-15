@@ -15,7 +15,14 @@ export default function FinalCTA() {
       </div>
 
       <div className="cta-illustration">
-        <img src="/images/cta-student.png" alt="Student ready for the future" />
+        <img className="cta-student-image" src="/images/hero-student.png" alt="Student learning with a laptop" />
+        <img className="cta-ladder-image" src="/ladder.png" alt="Learn, build, prepare, and get hired pathway" />
+        <span className="cta-laptop-message" aria-hidden="true">
+          Better<br />
+          Skills<br />
+          Brighter<br />
+          Tomorrow
+        </span>
       </div>
     </section>
   );
