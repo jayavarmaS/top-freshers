@@ -1625,22 +1625,52 @@ header {
 }
 
 .cta-section {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
   gap: 28px;
-  padding-top: 34px;
-  padding-bottom: 40px;
+  min-height: 440px;
+  padding: 52px 48px 36px;
+  border-radius: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #ffffff url("/yellowandrose.png") center / cover no-repeat;
+}
+
+.cta-section::before,
+.cta-section::after {
+  display: none;
+}
+
+.cta-copy,
+.cta-illustration {
+  position: relative;
+  z-index: 1;
 }
 
 .cta-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  padding: 8px 0 8px 12px;
+  z-index: 2;
+}
+
+.cta-copy h2 {
+  max-width: 560px;
+  color: #070707;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: clamp(2.8rem, 4.4vw, 5.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+  text-shadow: none;
+}
+
+.cta-copy h2::after {
+  display: none;
 }
 
 .cta-copy p {
-  font-size: 1.05rem;
+  max-width: 520px;
+  color: rgba(17, 17, 17, 0.78);
 }
 
 .cta-actions {
@@ -1650,30 +1680,21 @@ header {
 }
 
 .cta-illustration {
-  position: relative;
   min-height: 360px;
   display: flex;
   justify-content: center;
   align-items: end;
-  background: linear-gradient(135deg, rgba(183, 242, 210, 0.8), rgba(255, 240, 200, 0.72));
-  border-radius: 42px;
-  overflow: hidden;
+  background: transparent;
+  overflow: visible;
+  z-index: 2;
 }
 
 .cta-illustration img {
-  width: min(100%, 540px);
-  margin-left: 30px;
-}
-
-.cta-badge {
-  right: 20px;
-  bottom: 22px;
-  padding: 0.8rem 1.2rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 12px 24px rgba(17, 17, 17, 0.08);
-  font-weight: 900;
-  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+  width: min(100%, 620px);
+  margin-left: 20px;
+  filter: drop-shadow(0 18px 20px rgba(17, 17, 17, 0.14));
 }
 
 .site-footer {

@@ -16,7 +16,6 @@ export default function FinalCTA() {
 
       <div className="cta-illustration">
         <img src="/images/cta-student.png" alt="Student ready for the future" />
-        <div className="cta-badge">Good Skills, Bright Future.</div>
       </div>
     </section>
   );
