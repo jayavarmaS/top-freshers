@@ -1707,22 +1707,6 @@ header {
   filter: drop-shadow(0 12px 16px rgba(17, 17, 17, 0.14));
 }
 
-.cta-laptop-message {
-  position: absolute;
-  right: 31%;
-  bottom: 108px;
-  z-index: 4;
-  color: #111;
-  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
-  font-size: clamp(0.62rem, 0.95vw, 0.9rem);
-  font-weight: 800;
-  line-height: 1.05;
-  text-align: center;
-  white-space: nowrap;
-  transform: rotate(-4deg);
-  pointer-events: none;
-}
-
 .site-footer {
   width: min(1280px, calc(100% - 40px));
   margin: 0 auto;
@@ -2033,9 +2017,4 @@ header {
     width: min(38%, 190px);
   }
 
-  .cta-laptop-message {
-    right: 28%;
-    bottom: 92px;
-    font-size: 0.62rem;
-  }
 }
