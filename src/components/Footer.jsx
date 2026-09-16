@@ -38,9 +38,22 @@ export default function Footer() {
           <h4>Follow Us</h4>
           <div className="social-row">
             {footerLinks["Follow Us"].map((item) => (
-              <span className="social-icon" key={item}>
-                {item}
-              </span>
+              item === "in" ? (
+                <a
+                  className="social-icon"
+                  href="https://www.linkedin.com/company/tervpro/posts/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Terv Pro on LinkedIn"
+                  key={item}
+                >
+                  {item}
+                </a>
+              ) : (
+                <span className="social-icon" key={item}>
+                  {item}
+                </span>
+              )
             ))}
           </div>
           <div className="subscribe-box">

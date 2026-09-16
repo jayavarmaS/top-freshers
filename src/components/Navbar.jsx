@@ -38,7 +38,14 @@ export default function Navbar({ currentPage, onNavigate }) {
           <button className="icon-button" aria-label="Search">
             ⌕
           </button>
-          <button className="nav-login">Login</button>
+          <a
+            className="nav-login"
+            href="https://www.terv.pro/login"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Login
+          </a>
           <button className="nav-cta">Get Started</button>
         </div>
       </div>

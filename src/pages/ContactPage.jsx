@@ -55,7 +55,15 @@ export default function ContactPage({ onNavigate }) {
               <button className="social-icon" aria-label="Facebook">f</button>
               <button className="social-icon" aria-label="Twitter">𝕏</button>
               <button className="social-icon" aria-label="Instagram">◌</button>
-              <button className="social-icon" aria-label="LinkedIn">in</button>
+              <a
+                className="social-icon"
+                href="https://www.linkedin.com/company/tervpro/posts/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Terv Pro on LinkedIn"
+              >
+                in
+              </a>
             </div>
           </div>
         </div>
