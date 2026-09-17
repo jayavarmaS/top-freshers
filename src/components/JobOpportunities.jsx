@@ -33,14 +33,14 @@ const jobs = [
   },
 ];
 
-export default function JobOpportunities() {
+export default function JobOpportunities({ onNavigate }) {
   return (
     <section className="jobs-section" id="jobs">
       <div className="section-header">
         <h2>Fresh Opportunities. Real Careers.</h2>
         <div className="section-actions">
           <p>Explore the latest fresher jobs from top companies and kickstart your career.</p>
-          <button className="text-button">View All Jobs →</button>
+          <button className="text-button" onClick={() => document.getElementById("jobs")?.scrollIntoView({ behavior: "smooth" })}>View All Jobs →</button>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ export default function JobOpportunities() {
             </div>
             <div className="job-bottom">
               <span>{job.salary}</span>
-              <button className="job-arrow" aria-label={`View ${job.company} job`}>
+              <button className="job-arrow" aria-label={`View ${job.company} job`} onClick={() => onNavigate("contact")}>
                 →
               </button>
             </div>

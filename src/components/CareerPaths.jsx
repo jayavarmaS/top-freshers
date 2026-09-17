@@ -22,7 +22,16 @@ export default function CareerPaths({ onNavigate }) {
 
       <div className="path-grid">
         {paths.map((path) => (
-          <article className={`path-card tone-${path.tone}`} key={path.name}>
+          <article
+            className={`path-card tone-${path.tone}`}
+            key={path.name}
+            onClick={() => onNavigate("allcourses")}
+            style={{ cursor: "pointer" }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && onNavigate("allcourses")}
+            aria-label={`Explore ${path.name}`}
+          >
             <span className="path-icon">{path.icon}</span>
             <span>{path.name}</span>
           </article>

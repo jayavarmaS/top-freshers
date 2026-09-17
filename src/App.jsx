@@ -50,7 +50,7 @@ export default function App() {
           <Hero onNavigate={handleNavigate} />
           <CareerPaths onNavigate={handleNavigate} />
           <HowItWorks />
-          <JobOpportunities />
+          <JobOpportunities onNavigate={handleNavigate} />
           <CareerMap />
           <SuccessStories />
           <FinalCTA onNavigate={handleNavigate} />
