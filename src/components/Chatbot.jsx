@@ -155,8 +155,7 @@ const BOUNCE_SPEED  = 4.5;   // horizontal px per frame (moves right)
 const GRAVITY       = 0.7;
 const JUMP_FORCE    = -15;   // initial upward kick
 
-export default function Chatbot({ onNavigate }) {
-  const [open, setOpen] = useState(false);
+export default function Chatbot({ onNavigate, open, setOpen }) {
   const [messages, setMessages] = useState([
     {
       from: "bot",

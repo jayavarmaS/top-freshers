@@ -6,7 +6,7 @@ const navLinks = [
   { label: "Contact", page: "contact" },
 ];
 
-export default function Navbar({ currentPage, onNavigate }) {
+export default function Navbar({ currentPage, onNavigate, onOpenChat }) {
   return (
     <header className="site-header">
       <div className="nav-shell">
@@ -35,8 +35,17 @@ export default function Navbar({ currentPage, onNavigate }) {
         </nav>
 
         <div className="nav-actions">
-          <button className="icon-button" aria-label="Search">
-            ⌕
+          <button
+            className="icon-button nav-chat-btn"
+            aria-label="Open FreshBot chat"
+            onClick={onOpenChat}
+            title="Chat with FreshBot"
+          >
+            <span className="nav-bot-face">
+              <span className="nav-bot-eye nav-bot-eye-l" />
+              <span className="nav-bot-eye nav-bot-eye-r" />
+              <span className="nav-bot-smile" />
+            </span>
           </button>
           <a
             className="nav-login"

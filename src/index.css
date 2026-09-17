@@ -2868,3 +2868,56 @@ header {
     display: none;
   }
 }
+
+/* ── Navbar chat button (bot face icon) ── */
+.nav-chat-btn {
+  position: relative;
+  background: linear-gradient(135deg, #1a2a1a 0%, #0d1f2d 100%) !important;
+  border: 1.5px solid rgba(78, 167, 216, 0.4) !important;
+  box-shadow: 0 0 12px rgba(107, 189, 96, 0.3), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.nav-chat-btn:hover {
+  box-shadow: 0 0 20px rgba(107, 189, 96, 0.6), 0 0 36px rgba(78, 167, 216, 0.3) !important;
+  transform: scale(1.1) !important;
+}
+
+.nav-bot-face {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  border: 1.5px solid rgba(78, 167, 216, 0.5);
+  box-shadow: 0 0 6px rgba(78, 167, 216, 0.3);
+}
+
+.nav-bot-eye {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #7ff0fb, #4ea7d8);
+  top: 28%;
+  box-shadow: 0 0 4px rgba(78, 167, 216, 0.9);
+  animation: eyeBlink 4s ease-in-out infinite;
+}
+
+.nav-bot-eye-l { left: 18%; }
+.nav-bot-eye-r { right: 18%; }
+
+.nav-bot-smile {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 4px;
+  border-bottom: 2px solid #4ea7d8;
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 1px 4px rgba(78, 167, 216, 0.5);
+}

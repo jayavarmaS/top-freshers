@@ -16,6 +16,7 @@ import Chatbot from "./components/Chatbot";
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [activeSection, setActiveSection] = useState("top");
+  const [chatOpen, setChatOpen] = useState(false);
 
   const handleNavigate = (page, section = "top") => {
     setCurrentPage(page);
@@ -36,7 +37,7 @@ export default function App() {
 
   return (
     <>
-      <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
+      <Navbar currentPage={currentPage} onNavigate={handleNavigate} onOpenChat={() => setChatOpen(true)} />
 
       {currentPage === "courses" ? (
         <CoursesPage onNavigate={handleNavigate} />
@@ -57,7 +58,7 @@ export default function App() {
       )}
 
       <Footer onNavigate={handleNavigate} />
-      <Chatbot onNavigate={handleNavigate} />
+      <Chatbot onNavigate={handleNavigate} open={chatOpen} setOpen={setChatOpen} />
     </>
   );
 }
