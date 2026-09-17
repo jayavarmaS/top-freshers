@@ -149,11 +149,11 @@ function getReply(input, onNavigate) {
 }
 
 // ─── Component ────────────────────────────────────────────────────────────
-const BOT_SIZE = 76;          // px — matches .chatbot-fab width/height
-const BOTTOM_MARGIN = 28;     // px from bottom of viewport
-const BOUNCE_SPEED = 2.8;     // horizontal px per frame
-const GRAVITY = 0.55;         // downward acceleration
-const JUMP_FORCE = -13;       // initial upward velocity per bounce
+const BOT_SIZE     = 76;
+const BOTTOM_MARGIN = 28;
+const BOUNCE_SPEED  = 4.5;   // horizontal px per frame (moves right)
+const GRAVITY       = 0.7;
+const JUMP_FORCE    = -15;   // initial upward kick
 
 export default function Chatbot({ onNavigate }) {
   const [open, setOpen] = useState(false);
@@ -167,80 +167,75 @@ export default function Chatbot({ onNavigate }) {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
 
-  // bounce state stored in refs to avoid re-renders every frame
-  const posRef    = useRef({ x: window.innerWidth - BOT_SIZE - BOTTOM_MARGIN, y: 0 });
-  const velRef    = useRef({ x: -BOUNCE_SPEED, y: JUMP_FORCE });
-  const rafRef    = useRef(null);
-  const fabRef    = useRef(null);
-  const squashRef = useRef(false);   // true during the squash frame on landing
+  // bounce state in refs — no re-renders per frame
+  const posRef      = useRef({ x: 0, y: 0 });           // start at left edge
+  const velRef      = useRef({ x: BOUNCE_SPEED, y: JUMP_FORCE });
+  const rafRef      = useRef(null);
+  const doneRef     = useRef(false);                     // true once settled
+  const fabRef      = useRef(null);
 
   const bottomRef = useRef(null);
   const inputRef  = useRef(null);
 
-  // ── bounce animation loop ──────────────────────────────────────────────
+  // ── one-time entrance bounce ──────────────────────────────────────────
   const animate = useCallback(() => {
-    if (!fabRef.current) return;
+    if (!fabRef.current || doneRef.current) return;
 
-    const vw         = window.innerWidth;
-    const floorY     = 0;                       // y=0 means sitting at bottom margin
-    const maxX       = vw - BOT_SIZE - BOTTOM_MARGIN;
-    const minX       = BOTTOM_MARGIN;
+    const vw    = window.innerWidth;
+    const destX = vw - BOT_SIZE - BOTTOM_MARGIN;   // final resting x (right corner)
+    const floorY = 0;
 
     let { x, y } = posRef.current;
     let { x: vx, y: vy } = velRef.current;
 
-    // apply gravity
     vy += GRAVITY;
     y  += vy;
     x  += vx;
 
-    // floor bounce
+    // floor bounce — squash transform applied briefly
+    let scaleX = 1, scaleY = 1;
     if (y >= floorY) {
-      y        = floorY;
-      vy       = JUMP_FORCE;          // bounce back up
-      squashRef.current = true;
-    } else {
-      squashRef.current = false;
+      y  = floorY;
+      vy = JUMP_FORCE * 0.55;   // each bounce lower than the last (damping)
+      scaleX = 1.3;
+      scaleY = 0.7;
     }
 
-    // wall bounce
-    if (x <= minX)  { x = minX;  vx = Math.abs(vx);  }
-    if (x >= maxX)  { x = maxX;  vx = -Math.abs(vx); }
+    // reached (or passed) the right-corner destination → snap & stop
+    if (x >= destX) {
+      x = destX;
+      doneRef.current = true;
+      fabRef.current.style.left      = "unset";
+      fabRef.current.style.right     = `${BOTTOM_MARGIN}px`;
+      fabRef.current.style.bottom    = `${BOTTOM_MARGIN}px`;
+      fabRef.current.style.transform = "none";
+      fabRef.current.style.animation = "botGlow 3s ease-in-out infinite";
+      return;   // stop the loop
+    }
 
-    posRef.current  = { x, y };
-    velRef.current  = { x: vx, y: vy };
+    posRef.current = { x, y };
+    velRef.current = { x: vx, y: vy };
 
-    // apply to DOM — bottom is BOTTOM_MARGIN - y  (y is how high above floor)
-    const bottomPx = BOTTOM_MARGIN + (-y);   // y is ≤ 0, so -y ≥ 0 → higher = bigger bottom
-    const scaleX   = squashRef.current ? 1.25 : 1;
-    const scaleY   = squashRef.current ? 0.75 : 1;
-
-    fabRef.current.style.left       = `${x}px`;
-    fabRef.current.style.bottom     = `${bottomPx}px`;
-    fabRef.current.style.right      = "unset";
-    fabRef.current.style.transform  = `scaleX(${scaleX}) scaleY(${scaleY})`;
+    const bottomPx = BOTTOM_MARGIN + (-y);
+    fabRef.current.style.left      = `${x}px`;
+    fabRef.current.style.right     = "unset";
+    fabRef.current.style.bottom    = `${bottomPx}px`;
+    fabRef.current.style.transform = `scaleX(${scaleX}) scaleY(${scaleY})`;
 
     rafRef.current = requestAnimationFrame(animate);
   }, []);
 
-  // start / stop bounce based on open state
+  // kick off the entrance once on mount
   useEffect(() => {
-    if (open) {
-      // stop bouncing when panel is open
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      // snap to bottom-right corner
-      if (fabRef.current) {
-        fabRef.current.style.left      = "unset";
-        fabRef.current.style.right     = `${BOTTOM_MARGIN}px`;
-        fabRef.current.style.bottom    = `${BOTTOM_MARGIN}px`;
-        fabRef.current.style.transform = "none";
-      }
-    } else {
-      // resume bouncing
+    // small delay so the fly-in CSS animation finishes first
+    const t = setTimeout(() => {
       rafRef.current = requestAnimationFrame(animate);
-    }
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [open, animate]);
+    }, 600);
+    return () => {
+      clearTimeout(t);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [animate]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -253,11 +248,9 @@ export default function Chatbot({ onNavigate }) {
   const send = () => {
     const text = input.trim();
     if (!text) return;
-
     setMessages((prev) => [...prev, { from: "user", text }]);
     setInput("");
     setTyping(true);
-
     setTimeout(() => {
       const reply = getReply(text, onNavigate);
       setTyping(false);
@@ -372,7 +365,6 @@ export default function Chatbot({ onNavigate }) {
               key={q}
               className="chatbot-quick-btn"
               onClick={() => {
-                setInput(q);
                 setTimeout(() => {
                   const reply = getReply(q, onNavigate);
                   setMessages((prev) => [
