@@ -7,7 +7,7 @@ const paths = [
   { name: "Cyber Security", icon: "🛡", tone: "peach" },
 ];
 
-export default function CareerMap() {
+export default function CareerMap({ onNavigate }) {
   return (
     <section className="career-map-section">
       <div className="career-map-copy">
@@ -21,7 +21,7 @@ export default function CareerMap() {
         <p>
           Explore different career paths, skills, and opportunities to find what's right for you.
         </p>
-        <button className="primary-button">Explore Career Paths →</button>
+        <button className="primary-button" onClick={() => onNavigate("allcourses")}>Explore Career Paths →</button>
       </div>
 
       <div className="career-map-visual">

@@ -54,7 +54,7 @@ export default function App() {
           <CareerPaths onNavigate={handleNavigate} />
           <HowItWorks />
           <JobOpportunities onNavigate={handleNavigate} />
-          <CareerMap />
+          <CareerMap onNavigate={handleNavigate} />
           <SuccessStories />
           <FinalCTA onNavigate={handleNavigate} />
         </>
