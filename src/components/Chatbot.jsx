@@ -201,16 +201,19 @@ export default function Chatbot({ onNavigate }) {
       scaleY = 0.7;
     }
 
-    // reached (or passed) the right-corner destination → snap & stop
+    // reached (or passed) the right-corner destination → snap & start flying idle
     if (x >= destX) {
       x = destX;
       doneRef.current = true;
-      fabRef.current.style.left      = "unset";
-      fabRef.current.style.right     = `${BOTTOM_MARGIN}px`;
-      fabRef.current.style.bottom    = `${BOTTOM_MARGIN}px`;
-      fabRef.current.style.transform = "none";
-      fabRef.current.style.animation = "botGlow 3s ease-in-out infinite";
-      return;   // stop the loop
+      fabRef.current.style.left        = "unset";
+      fabRef.current.style.right       = `${BOTTOM_MARGIN}px`;
+      fabRef.current.style.bottom      = `${BOTTOM_MARGIN}px`;
+      fabRef.current.style.transform   = "none";
+      fabRef.current.style.transformOrigin = "center center";
+      // continuous flying + glow once settled
+      fabRef.current.style.animation   =
+        "botFly 3.2s ease-in-out infinite, botGlow 3s ease-in-out infinite";
+      return;   // stop the RAF loop
     }
 
     posRef.current = { x, y };

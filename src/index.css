@@ -2320,6 +2320,17 @@ header {
   75%       { transform: translateY(-10px) translateX(-3px); }
 }
 
+@keyframes botFly {
+  0%   { transform: translateY(0px)   rotate(0deg)   scale(1);    }
+  15%  { transform: translateY(-14px) rotate(-6deg)  scale(1.04); }
+  30%  { transform: translateY(-22px) rotate(4deg)   scale(1.02); }
+  45%  { transform: translateY(-12px) rotate(-3deg)  scale(1.05); }
+  60%  { transform: translateY(-20px) rotate(5deg)   scale(1.03); }
+  75%  { transform: translateY(-8px)  rotate(-4deg)  scale(1.01); }
+  90%  { transform: translateY(-16px) rotate(2deg)   scale(1.04); }
+  100% { transform: translateY(0px)   rotate(0deg)   scale(1);    }
+}
+
 @keyframes botGlow {
   0%, 100% { box-shadow: 0 0 18px rgba(107, 189, 96, 0.5), 0 0 36px rgba(78, 167, 216, 0.3); }
   50%       { box-shadow: 0 0 28px rgba(107, 189, 96, 0.8), 0 0 54px rgba(78, 167, 216, 0.5); }
