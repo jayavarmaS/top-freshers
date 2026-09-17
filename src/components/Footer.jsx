@@ -1,5 +1,3 @@
-import LogoAnimated from "./LogoAnimated";
-
 const quickLinks = [
   { label: "Courses",      page: "courses",    section: "top" },
   { label: "Jobs",         page: "home",       section: "jobs" },
@@ -46,7 +44,14 @@ export default function Footer({ onNavigate }) {
     <footer className="site-footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <LogoAnimated size={80} onClick={() => go("home", "top")} />
+          <button
+            type="button"
+            className="brand-mark brand-logo brand-button"
+            onClick={() => go("home", "top")}
+            aria-label="Go to home"
+          >
+            <img src="/ChatGPT Image Sep 11, 2026, 01_11_56 PM.png" alt="Top Freshers logo" className="brand-logo" />
+          </button>
         </div>
 
         <div className="footer-column">

@@ -1,5 +1,3 @@
-import LogoAnimated from "./LogoAnimated";
-
 const navLinks = [
   { label: "Home", page: "home", section: "top" },
   { label: "Features", page: "home", section: "features" },
@@ -13,7 +11,14 @@ export default function Navbar({ currentPage, onNavigate, onOpenChat }) {
     <header className="site-header">
       <div className="nav-shell">
         <div className="brand-wrap">
-          <LogoAnimated size={90} onClick={() => onNavigate("home", "top")} />
+          <button
+            type="button"
+            className="brand-mark brand-logo brand-button"
+            onClick={() => onNavigate("home", "top")}
+            aria-label="Go to home"
+          >
+            <img src="/ChatGPT Image Sep 11, 2026, 01_11_56 PM.png" alt="Top Freshers logo" />
+          </button>
         </div>
 
         <nav className="main-nav" aria-label="Primary navigation">
