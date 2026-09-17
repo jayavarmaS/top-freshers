@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import CoursesPage from "./pages/CoursesPage";
 import ContactPage from "./pages/ContactPage";
 import AllCoursesPage from "./pages/AllCoursesPage";
+import Chatbot from "./components/Chatbot";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -56,6 +57,7 @@ export default function App() {
       )}
 
       <Footer onNavigate={handleNavigate} />
+      <Chatbot onNavigate={handleNavigate} />
     </>
   );
 }
