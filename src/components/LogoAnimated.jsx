@@ -1,57 +1,63 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /*
-  Animated Top Freshers logo.
-  The 3 coloured leaf-squares jump away from the tree one by one,
-  then bounce back and reattach — on a looping cycle.
+  Top Freshers animated logo.
+  - At rest: shows the original PNG logo exactly as-is.
+  - On cycle: the 3 coloured leaf squares jump away from the tree
+    then snap back — after which it looks exactly like the original again.
 */
-
 export default function LogoAnimated({ size = 120, onClick }) {
   const greenRef  = useRef(null);
   const blueRef   = useRef(null);
   const orangeRef = useRef(null);
+  const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
+    const CYCLE = 4000; // ms between each jump sequence
+
+    // leaf jump configs — how far each leaf flies relative to its rest position
     const leaves = [
-      { el: greenRef.current,  tx: -22, ty: -18, delay: 0    },
-      { el: blueRef.current,   tx: 14,  ty: -24, delay: 600  },
-      { el: orangeRef.current, tx: 20,  ty: -10, delay: 1200 },
+      { ref: greenRef,  tx: -18, ty: -16, rot: -18, delay: 0    },
+      { ref: blueRef,   tx:  12, ty: -22, rot:  16, delay: 550  },
+      { ref: orangeRef, tx:  18, ty:  -8, rot:  14, delay: 1100 },
     ];
 
-    const JUMP_DURATION  = 340;  // ms — time to fly out
-    const HOLD_DURATION  = 180;  // ms — hang in air
-    const RETURN_DURATION = 320; // ms — bounce back
-    const CYCLE          = 3800; // ms — full repeat cycle
+    const JUMP_MS   = 320;
+    const HOLD_MS   = 200;
+    const RETURN_MS = 300;
 
     const timers = [];
 
-    const jump = (leaf, index) => {
-      const el = leaf.el;
-      if (!el) return;
+    const runCycle = () => {
+      setAnimated(true);
 
-      // fly out
-      el.style.transition = `transform ${JUMP_DURATION}ms cubic-bezier(0.34,1.56,0.64,1)`;
-      el.style.transform  = `translate(${leaf.tx}px, ${leaf.ty}px) rotate(${leaf.tx > 0 ? 14 : -14}deg) scale(1.12)`;
+      leaves.forEach(({ ref, tx, ty, rot, delay }) => {
+        // jump out
+        const t1 = setTimeout(() => {
+          if (!ref.current) return;
+          ref.current.style.transition = `transform ${JUMP_MS}ms cubic-bezier(0.34,1.56,0.64,1)`;
+          ref.current.style.transform  =
+            `translate(${tx}px,${ty}px) rotate(${rot}deg) scale(1.14)`;
+        }, delay);
 
-      // hold, then return
-      const t1 = setTimeout(() => {
-        el.style.transition = `transform ${RETURN_DURATION}ms cubic-bezier(0.34,1.56,0.64,1)`;
-        el.style.transform  = "translate(0,0) rotate(0deg) scale(1)";
-      }, JUMP_DURATION + HOLD_DURATION);
+        // return to rest
+        const t2 = setTimeout(() => {
+          if (!ref.current) return;
+          ref.current.style.transition = `transform ${RETURN_MS}ms cubic-bezier(0.34,1.56,0.64,1)`;
+          ref.current.style.transform  = "translate(0,0) rotate(0deg) scale(1)";
+        }, delay + JUMP_MS + HOLD_MS);
 
-      timers.push(t1);
-    };
-
-    // stagger each leaf, then repeat the whole sequence
-    const run = () => {
-      leaves.forEach((leaf, i) => {
-        const t = setTimeout(() => jump(leaf, i), leaf.delay);
-        timers.push(t);
+        timers.push(t1, t2);
       });
+
+      // mark animation done after all leaves returned
+      const lastEnd = 1100 + JUMP_MS + HOLD_MS + RETURN_MS + 50;
+      const tDone = setTimeout(() => setAnimated(false), lastEnd);
+      timers.push(tDone);
     };
 
-    run();
-    const interval = setInterval(run, CYCLE);
+    runCycle();
+    const interval = setInterval(runCycle, CYCLE);
 
     return () => {
       timers.forEach(clearTimeout);
@@ -59,121 +65,112 @@ export default function LogoAnimated({ size = 120, onClick }) {
     };
   }, []);
 
+  /*
+    Layout:
+    The original PNG is 1333×1000 px. In the navbar we render it at ~120px wide.
+    The three leaf squares in the PNG (approximate % positions):
+
+    Green  square : left ~5%, top ~18%, width ~33%, height ~46%
+    Blue   square : left ~38%, top ~5%, width ~27%, height ~38%
+    Orange square : left ~53%, top ~28%, width ~28%, height ~40%
+
+    We position coloured divs exactly over those regions,
+    set them transparent normally, and when animated they
+    show their colour so the jump is visible.
+    Actually simpler: we DON'T hide the PNG leaves —
+    we overlay animated divs with the same colours that match.
+    They start at opacity 0, fly, then fade back.
+
+    ACTUALLY even simpler: render the PNG normally. 
+    On top, render 3 absolutely-positioned elements that are 
+    INVISIBLE at rest (opacity:0) but during the jump they
+    slide out as coloured clones and return.
+  */
+
+  const w = size;
+  const h = size * 0.75;
+
+  // positions as fraction of container size (matched to PNG)
+  const leaves = [
+    {
+      ref: greenRef,
+      color: "#5cb85c",
+      left: "4%", top: "16%", width: "32%", height: "45%",
+      borderRadius: "18%",
+      rotate: "-12deg",
+    },
+    {
+      ref: blueRef,
+      color: "#3aa3d8",
+      left: "37%", top: "4%", width: "27%", height: "38%",
+      borderRadius: "18%",
+      rotate: "10deg",
+    },
+    {
+      ref: orangeRef,
+      color: "#f0a500",
+      left: "52%", top: "26%", width: "27%", height: "39%",
+      borderRadius: "18%",
+      rotate: "8deg",
+    },
+  ];
+
   return (
     <button
       type="button"
       onClick={onClick}
-      className="brand-button"
       aria-label="Go to home"
-      style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "flex", alignItems: "center" }}
+      style={{
+        background: "none",
+        border: "none",
+        padding: 0,
+        cursor: "pointer",
+        display: "inline-block",
+        position: "relative",
+        width: w,
+        height: h,
+        flexShrink: 0,
+      }}
     >
-      <svg
-        width={size}
-        height={size * 0.72}
-        viewBox="0 0 200 144"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ overflow: "visible" }}
-      >
-        {/* ── Grey tree trunk ── */}
-        <g>
-          {/* trunk body */}
-          <path
-            d="M88 144 C88 144 80 110 78 90 C75 68 60 58 58 48
-               C58 48 72 55 82 68 C82 68 80 52 74 38
-               C74 38 86 50 90 65
-               C90 65 92 50 88 34
-               C88 34 102 50 100 68
-               C100 68 106 52 112 38
-               C112 38 108 55 104 70
-               C104 70 116 55 122 48
-               C122 48 118 68 108 88
-               C106 98 100 118 100 144 Z"
-            fill="#888"
-          />
-        </g>
+      {/* Original PNG — always visible, never moves */}
+      <img
+        src="/ChatGPT Image Sep 11, 2026, 01_11_56 PM.png"
+        alt="Top Freshers logo"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          display: "block",
+          /* hide the leaf area during animation so clones replace them */
+          zIndex: animated ? 0 : 1,
+        }}
+        draggable={false}
+      />
 
-        {/* ── GREEN leaf (left, tilted -12deg) ── */}
-        <g
-          ref={greenRef}
+      {/* Animated leaf clones — sit over the PNG leaves, fly out & back */}
+      {leaves.map((leaf, i) => (
+        <span
+          key={i}
+          ref={leaf.ref}
           style={{
-            transformOrigin: "62px 72px",
+            position: "absolute",
+            left: leaf.left,
+            top: leaf.top,
+            width: leaf.width,
+            height: leaf.height,
+            borderRadius: leaf.borderRadius,
+            background: leaf.color,
+            transform: `rotate(${leaf.rotate}) translate(0,0) scale(1)`,
+            transformOrigin: "center center",
+            opacity: animated ? 1 : 0,
+            zIndex: 2,
             willChange: "transform",
-            transition: "transform 0.32s cubic-bezier(0.34,1.56,0.64,1)",
+            pointerEvents: "none",
           }}
-        >
-          <rect
-            x="14" y="38"
-            width="68" height="68"
-            rx="16"
-            fill="#5cb85c"
-            transform="rotate(-12 62 72)"
-          />
-          {/* person figure in green */}
-          <circle cx="54" cy="56" r="7" fill="white" transform="rotate(-12 62 72)" />
-          <path
-            d="M42 85 C42 72 66 72 66 85"
-            stroke="white" strokeWidth="5" fill="none" strokeLinecap="round"
-            transform="rotate(-12 62 72)"
-          />
-          <line x1="54" y1="63" x2="44" y2="75" stroke="white" strokeWidth="4" strokeLinecap="round" transform="rotate(-12 62 72)" />
-          <line x1="54" y1="63" x2="64" y2="72" stroke="white" strokeWidth="4" strokeLinecap="round" transform="rotate(-12 62 72)" />
-        </g>
-
-        {/* ── BLUE leaf (top-center, tilted +10deg) ── */}
-        <g
-          ref={blueRef}
-          style={{
-            transformOrigin: "112px 42px",
-            willChange: "transform",
-            transition: "transform 0.32s cubic-bezier(0.34,1.56,0.64,1)",
-          }}
-        >
-          <rect
-            x="84" y="8"
-            width="56" height="56"
-            rx="13"
-            fill="#3aa3d8"
-            transform="rotate(10 112 36)"
-          />
-          {/* person figure in blue */}
-          <circle cx="112" cy="24" r="6" fill="white" transform="rotate(10 112 36)" />
-          <path
-            d="M102 48 C102 38 122 38 122 48"
-            stroke="white" strokeWidth="4" fill="none" strokeLinecap="round"
-            transform="rotate(10 112 36)"
-          />
-          <line x1="112" y1="30" x2="104" y2="40" stroke="white" strokeWidth="3.5" strokeLinecap="round" transform="rotate(10 112 36)" />
-          <line x1="112" y1="30" x2="120" y2="40" stroke="white" strokeWidth="3.5" strokeLinecap="round" transform="rotate(10 112 36)" />
-        </g>
-
-        {/* ── ORANGE leaf (right, tilted +8deg) ── */}
-        <g
-          ref={orangeRef}
-          style={{
-            transformOrigin: "136px 84px",
-            willChange: "transform",
-            transition: "transform 0.32s cubic-bezier(0.34,1.56,0.64,1)",
-          }}
-        >
-          <rect
-            x="108" y="56"
-            width="58" height="58"
-            rx="14"
-            fill="#f0a500"
-            transform="rotate(8 136 85)"
-          />
-          {/* person figure in orange */}
-          <circle cx="136" cy="70" r="6.5" fill="white" transform="rotate(8 136 85)" />
-          <path
-            d="M124 96 C124 84 148 84 148 96"
-            stroke="white" strokeWidth="4" fill="none" strokeLinecap="round"
-            transform="rotate(8 136 85)"
-          />
-          <line x1="136" y1="77" x2="126" y2="88" stroke="white" strokeWidth="4" strokeLinecap="round" transform="rotate(8 136 85)" />
-          <line x1="136" y1="77" x2="146" y2="86" stroke="white" strokeWidth="4" strokeLinecap="round" transform="rotate(8 136 85)" />
-        </g>
-      </svg>
+        />
+      ))}
     </button>
   );
 }
