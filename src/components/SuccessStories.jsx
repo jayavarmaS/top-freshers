@@ -19,7 +19,7 @@ const stories = [
   },
 ];
 
-export default function SuccessStories() {
+export default function SuccessStories({ onNavigate }) {
   return (
     <section className="stories-section" id="success">
       <div className="section-header">
@@ -27,7 +27,7 @@ export default function SuccessStories() {
           <p className="small-kicker">SUCCESS STORIES</p>
           <h2>Real People. Real Progress.</h2>
         </div>
-        <button className="text-button">View All Stories →</button>
+        <button className="text-button" onClick={() => onNavigate("stories")}>View All Stories →</button>
       </div>
 
       <p className="stories-subtitle">

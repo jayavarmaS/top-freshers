@@ -12,6 +12,7 @@ import CoursesPage from "./pages/CoursesPage";
 import ContactPage from "./pages/ContactPage";
 import AllCoursesPage from "./pages/AllCoursesPage";
 import AllJobsPage from "./pages/AllJobsPage";
+import SuccessStoriesPage from "./pages/SuccessStoriesPage";
 import Chatbot from "./components/Chatbot";
 
 export default function App() {
@@ -48,6 +49,8 @@ export default function App() {
         <AllCoursesPage onNavigate={handleNavigate} />
       ) : currentPage === "alljobs" ? (
         <AllJobsPage onNavigate={handleNavigate} />
+      ) : currentPage === "stories" ? (
+        <SuccessStoriesPage onNavigate={handleNavigate} />
       ) : (
         <>
           <Hero onNavigate={handleNavigate} />
@@ -55,7 +58,7 @@ export default function App() {
           <HowItWorks />
           <JobOpportunities onNavigate={handleNavigate} />
           <CareerMap onNavigate={handleNavigate} />
-          <SuccessStories />
+          <SuccessStories onNavigate={handleNavigate} />
           <FinalCTA onNavigate={handleNavigate} />
         </>
       )}

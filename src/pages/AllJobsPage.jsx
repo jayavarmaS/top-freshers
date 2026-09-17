@@ -34,7 +34,7 @@ const featuredJobs = [
   },
   {
     company: "Meta",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/320px-Meta_Platforms_Inc._logo.svg.png",
     role: "Frontend Engineer",
     stack: ["React", "GraphQL", "TypeScript"],
     location: "Hyderabad",
@@ -59,7 +59,7 @@ const allJobs = [
   },
   {
     company: "Infosys",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Infosys_logo.svg/320px-Infosys_logo.svg.png",
     role: "Digital Specialist Engineer",
     stack: ["React", "Node.js", "MongoDB"],
     location: "Pune",
@@ -103,7 +103,7 @@ const allJobs = [
   },
   {
     company: "Cognizant",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Cognizant_logo.png",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Cognizant_logo_2022.svg/320px-Cognizant_logo_2022.svg.png",
     role: "Programmer Analyst",
     stack: ["C#", "Azure", ".NET"],
     location: "Coimbatore",
@@ -114,7 +114,7 @@ const allJobs = [
   },
   {
     company: "Capgemini",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Capgemini_201x_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Capgemini_201x_logo.svg/320px-Capgemini_201x_logo.svg.png",
     role: "Software Engineer",
     stack: ["Angular", "Spring", "MySQL"],
     location: "Mumbai",
@@ -125,7 +125,7 @@ const allJobs = [
   },
   {
     company: "HCL Technologies",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/8/8e/HCL_Technologies_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/HCL_Technologies_logo.svg/320px-HCL_Technologies_logo.svg.png",
     role: "Graduate Engineer Trainee",
     stack: ["Java", "REST APIs", "Git"],
     location: "Noida",
@@ -136,7 +136,7 @@ const allJobs = [
   },
   {
     company: "Salesforce",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/320px-Salesforce.com_logo.svg.png",
     role: "Junior Salesforce Developer",
     stack: ["Apex", "LWC", "SOQL"],
     location: "Hyderabad",
@@ -147,7 +147,7 @@ const allJobs = [
   },
   {
     company: "Adobe",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Adobe_Corporate_Logo.png",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Adobe_Corporate_Logo.png/320px-Adobe_Corporate_Logo.png",
     role: "UI/UX Engineer",
     stack: ["Figma", "React", "CSS"],
     location: "Noida",
@@ -158,7 +158,7 @@ const allJobs = [
   },
   {
     company: "Oracle",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Oracle_logo.svg/320px-Oracle_logo.svg.png",
     role: "Java Application Developer",
     stack: ["Java", "Oracle DB", "PL/SQL"],
     location: "Bangalore",
@@ -169,7 +169,7 @@ const allJobs = [
   },
   {
     company: "Samsung",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/320px-Samsung_Logo.svg.png",
     role: "R&D Software Engineer",
     stack: ["C++", "Embedded C", "Linux"],
     location: "Bangalore",
@@ -180,7 +180,7 @@ const allJobs = [
   },
   {
     company: "Deloitte",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/56/Deloitte.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Deloitte.svg/320px-Deloitte.svg.png",
     role: "Analyst – Technology",
     stack: ["Python", "Power BI", "Azure"],
     location: "Mumbai",
@@ -191,7 +191,7 @@ const allJobs = [
   },
   {
     company: "Nvidia",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/21/Nvidia_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Nvidia_logo.svg/320px-Nvidia_logo.svg.png",
     role: "AI Infrastructure Engineer",
     stack: ["CUDA", "Python", "Deep Learning"],
     location: "Pune",
@@ -202,7 +202,7 @@ const allJobs = [
   },
   {
     company: "Zoho",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Zoho-logo.png",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Zoho-logo.png/320px-Zoho-logo.png",
     role: "Member Technical Staff",
     stack: ["Java", "React", "AWS"],
     location: "Chennai",
@@ -213,7 +213,7 @@ const allJobs = [
   },
   {
     company: "Flipkart",
-    logo: "https://upload.wikimedia.org/wikipedia/en/1/1b/Flipkart_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Flipkart_logo.svg/320px-Flipkart_logo.svg.png",
     role: "Software Development Engineer I",
     stack: ["Kotlin", "Microservices", "Kafka"],
     location: "Bangalore",
@@ -224,7 +224,7 @@ const allJobs = [
   },
   {
     company: "Razorpay",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Razorpay_logo.svg/320px-Razorpay_logo.svg.png",
     role: "Backend Engineer",
     stack: ["Go", "Node.js", "MySQL"],
     location: "Bangalore",
@@ -235,7 +235,7 @@ const allJobs = [
   },
   {
     company: "Swiggy",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/1/13/Swiggy_logo.png",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Swiggy_logo.png/320px-Swiggy_logo.png",
     role: "Data Analyst",
     stack: ["SQL", "Python", "Tableau"],
     location: "Bangalore",
