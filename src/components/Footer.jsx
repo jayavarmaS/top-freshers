@@ -1,10 +1,45 @@
-const footerLinks = {
-  "Quick Links": ["Courses", "Jobs", "Career Paths", "Resources"],
-  Company: ["About", "Success Stories", "Privacy Policy", "Terms of Service"],
-  "Follow Us": ["in", "X", "f", "◎"],
-};
+const quickLinks = [
+  { label: "Courses",      page: "courses",    section: "top" },
+  { label: "Jobs",         page: "home",       section: "jobs" },
+  { label: "Career Paths", page: "home",       section: "features" },
+  { label: "Resources",    page: "home",       section: "howitworks" },
+];
 
-export default function Footer() {
+const companyLinks = [
+  { label: "About",            page: "home",    section: "about" },
+  { label: "Success Stories",  page: "home",    section: "success" },
+  { label: "Privacy Policy",   page: "contact", section: "top" },
+  { label: "Terms of Service", page: "contact", section: "top" },
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    glyph: "f",
+    href: "https://www.facebook.com/tervtribe/",
+  },
+  {
+    label: "YouTube",
+    glyph: "▶",
+    href: "https://www.youtube.com/@TervProTech",
+  },
+  {
+    label: "Instagram",
+    glyph: "◎",
+    href: "https://www.instagram.com/terv.pro/?hl=en",
+  },
+  {
+    label: "LinkedIn",
+    glyph: "in",
+    href: "https://www.linkedin.com/company/tervpro/posts/",
+  },
+];
+
+export default function Footer({ onNavigate }) {
+  const go = (page, section = "top") => {
+    if (onNavigate) onNavigate(page, section);
+  };
+
   return (
     <footer className="site-footer">
       <div className="footer-top">
@@ -19,8 +54,15 @@ export default function Footer() {
         <div className="footer-column">
           <h4>Quick Links</h4>
           <ul>
-            {footerLinks["Quick Links"].map((item) => (
-              <li key={item}>{item}</li>
+            {quickLinks.map((item) => (
+              <li key={item.label}>
+                <button
+                  className="footer-nav-link"
+                  onClick={() => go(item.page, item.section)}
+                >
+                  {item.label}
+                </button>
+              </li>
             ))}
           </ul>
         </div>
@@ -28,8 +70,15 @@ export default function Footer() {
         <div className="footer-column">
           <h4>Company</h4>
           <ul>
-            {footerLinks.Company.map((item) => (
-              <li key={item}>{item}</li>
+            {companyLinks.map((item) => (
+              <li key={item.label}>
+                <button
+                  className="footer-nav-link"
+                  onClick={() => go(item.page, item.section)}
+                >
+                  {item.label}
+                </button>
+              </li>
             ))}
           </ul>
         </div>
@@ -37,23 +86,17 @@ export default function Footer() {
         <div className="footer-column">
           <h4>Follow Us</h4>
           <div className="social-row">
-            {footerLinks["Follow Us"].map((item) => (
-              item === "in" ? (
-                <a
-                  className="social-icon"
-                  href="https://www.linkedin.com/company/tervpro/posts/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Terv Pro on LinkedIn"
-                  key={item}
-                >
-                  {item}
-                </a>
-              ) : (
-                <span className="social-icon" key={item}>
-                  {item}
-                </span>
-              )
+            {socialLinks.map((s) => (
+              <a
+                key={s.label}
+                className="social-icon"
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Terv Pro on ${s.label}`}
+              >
+                {s.glyph}
+              </a>
             ))}
           </div>
           <div className="subscribe-box">

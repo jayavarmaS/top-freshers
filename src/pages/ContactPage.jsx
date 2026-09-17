@@ -52,9 +52,33 @@ export default function ContactPage({ onNavigate }) {
           <div className="follow-block">
             <h3>Follow Us</h3>
             <div className="social-row contact-social-row">
-              <button className="social-icon" aria-label="Facebook">f</button>
-              <button className="social-icon" aria-label="Twitter">𝕏</button>
-              <button className="social-icon" aria-label="Instagram">◌</button>
+              <a
+                className="social-icon"
+                href="https://www.facebook.com/tervtribe/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Terv Pro on Facebook"
+              >
+                f
+              </a>
+              <a
+                className="social-icon"
+                href="https://www.youtube.com/@TervProTech"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Terv Pro on YouTube"
+              >
+                ▶
+              </a>
+              <a
+                className="social-icon"
+                href="https://www.instagram.com/terv.pro/?hl=en"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Terv Pro on Instagram"
+              >
+                ◎
+              </a>
               <a
                 className="social-icon"
                 href="https://www.linkedin.com/company/tervpro/posts/"

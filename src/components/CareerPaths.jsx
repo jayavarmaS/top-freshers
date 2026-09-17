@@ -9,7 +9,7 @@ const paths = [
   { name: "Cyber Security", icon: "🛡", tone: "lilac" },
 ];
 
-export default function CareerPaths() {
+export default function CareerPaths({ onNavigate }) {
   return (
     <section className="paths-section" id="features">
       <div className="section-header wide-header">
@@ -17,7 +17,7 @@ export default function CareerPaths() {
           <h2>What's your next move?</h2>
           <p>Explore in-demand career paths and find what's right for you.</p>
         </div>
-        <button className="text-button">Explore All →</button>
+        <button className="text-button" onClick={() => onNavigate("allcourses")}>Explore All →</button>
       </div>
 
       <div className="path-grid">

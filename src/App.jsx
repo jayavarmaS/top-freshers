@@ -10,6 +10,7 @@ import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import CoursesPage from "./pages/CoursesPage";
 import ContactPage from "./pages/ContactPage";
+import AllCoursesPage from "./pages/AllCoursesPage";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -40,19 +41,21 @@ export default function App() {
         <CoursesPage onNavigate={handleNavigate} />
       ) : currentPage === "contact" ? (
         <ContactPage onNavigate={handleNavigate} />
+      ) : currentPage === "allcourses" ? (
+        <AllCoursesPage onNavigate={handleNavigate} />
       ) : (
         <>
           <Hero onNavigate={handleNavigate} />
-          <CareerPaths />
+          <CareerPaths onNavigate={handleNavigate} />
           <HowItWorks />
           <JobOpportunities />
           <CareerMap />
           <SuccessStories />
-          <FinalCTA />
+          <FinalCTA onNavigate={handleNavigate} />
         </>
       )}
 
-      <Footer />
+      <Footer onNavigate={handleNavigate} />
     </>
   );
 }

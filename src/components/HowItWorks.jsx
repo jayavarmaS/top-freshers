@@ -27,7 +27,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="how-it-works-section">
+    <section className="how-it-works-section" id="howitworks">
       <div className="journey-visual">
         <div className="journey-image-shell">
           <img src="/images/learning-student.png" alt="Student smiling" />

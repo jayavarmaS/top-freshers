@@ -65,7 +65,7 @@ export default function CoursesPage({ onNavigate }) {
       <section className="page-section page-courses">
         <div className="section-head">
           <h2>What&apos;s your next move?</h2>
-          <button className="text-button" onClick={() => onNavigate("home")}>Explore All →</button>
+          <button className="text-button" onClick={() => onNavigate("allcourses")}>Explore All →</button>
         </div>
 
         <div className="course-grid">

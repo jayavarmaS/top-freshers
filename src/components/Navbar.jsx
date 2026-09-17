@@ -46,7 +46,7 @@ export default function Navbar({ currentPage, onNavigate }) {
           >
             Login
           </a>
-          <button className="nav-cta">Get Started</button>
+          <button className="nav-cta" onClick={() => onNavigate("contact")}>Get Started</button>
         </div>
       </div>
     </header>

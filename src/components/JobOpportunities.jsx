@@ -35,7 +35,7 @@ const jobs = [
 
 export default function JobOpportunities() {
   return (
-    <section className="jobs-section">
+    <section className="jobs-section" id="jobs">
       <div className="section-header">
         <h2>Fresh Opportunities. Real Careers.</h2>
         <div className="section-actions">
