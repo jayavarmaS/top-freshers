@@ -2353,18 +2353,18 @@ header {
 /* ── Root container ── */
 .chatbot-root {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 14px;
+  pointer-events: none; /* let clicks pass through to page; children re-enable */
 }
 
 /* ── FAB (floating button / bot avatar) ── */
 .chatbot-fab {
-  position: relative;
+  position: fixed;           /* JS sets left + bottom each frame */
+  bottom: 28px;
+  right: 28px;
   width: 76px;
   height: 76px;
   border: none;
@@ -2374,16 +2374,27 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: all;
   animation: botFlyIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both,
-             botFloat 5s ease-in-out 1s infinite,
              botGlow 3s ease-in-out 1s infinite;
-  transition: transform 0.2s ease;
   outline: none;
+  transform-origin: center bottom;   /* squash scales from bottom */
+  transition: box-shadow 0.1s ease;
+  z-index: 1000;
 }
 
-.chatbot-fab:hover {
-  animation: botGlow 1s ease-in-out infinite;
-  transform: scale(1.08);
+.chatbot-fab::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.18);
+  filter: blur(4px);
+  transition: width 0.1s ease, opacity 0.1s ease;
 }
 
 .chatbot-fab-open {
@@ -2550,9 +2561,9 @@ header {
 
 /* ── Chat panel ── */
 .chatbot-panel {
-  position: absolute;
-  bottom: 90px;
-  right: 0;
+  position: fixed;
+  bottom: 120px;
+  right: 28px;
   width: 360px;
   max-height: 540px;
   border-radius: 24px;
@@ -2566,6 +2577,7 @@ header {
   pointer-events: none;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
               opacity 0.25s ease;
+  z-index: 1001;
 }
 
 .chatbot-panel-open {
@@ -2836,14 +2848,9 @@ header {
 
 /* ── Responsive ── */
 @media (max-width: 480px) {
-  .chatbot-root {
-    bottom: 16px;
-    right: 16px;
-  }
-
   .chatbot-panel {
     width: calc(100vw - 32px);
-    right: 0;
+    right: 16px;
   }
 
   .chatbot-bubble-hint {

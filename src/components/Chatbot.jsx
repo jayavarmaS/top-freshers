@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 // ─── Site knowledge base ───────────────────────────────────────────────────
 const KB = [
@@ -149,6 +149,12 @@ function getReply(input, onNavigate) {
 }
 
 // ─── Component ────────────────────────────────────────────────────────────
+const BOT_SIZE = 76;          // px — matches .chatbot-fab width/height
+const BOTTOM_MARGIN = 28;     // px from bottom of viewport
+const BOUNCE_SPEED = 2.8;     // horizontal px per frame
+const GRAVITY = 0.55;         // downward acceleration
+const JUMP_FORCE = -13;       // initial upward velocity per bounce
+
 export default function Chatbot({ onNavigate }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -160,8 +166,81 @@ export default function Chatbot({ onNavigate }) {
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+
+  // bounce state stored in refs to avoid re-renders every frame
+  const posRef    = useRef({ x: window.innerWidth - BOT_SIZE - BOTTOM_MARGIN, y: 0 });
+  const velRef    = useRef({ x: -BOUNCE_SPEED, y: JUMP_FORCE });
+  const rafRef    = useRef(null);
+  const fabRef    = useRef(null);
+  const squashRef = useRef(false);   // true during the squash frame on landing
+
   const bottomRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef  = useRef(null);
+
+  // ── bounce animation loop ──────────────────────────────────────────────
+  const animate = useCallback(() => {
+    if (!fabRef.current) return;
+
+    const vw         = window.innerWidth;
+    const floorY     = 0;                       // y=0 means sitting at bottom margin
+    const maxX       = vw - BOT_SIZE - BOTTOM_MARGIN;
+    const minX       = BOTTOM_MARGIN;
+
+    let { x, y } = posRef.current;
+    let { x: vx, y: vy } = velRef.current;
+
+    // apply gravity
+    vy += GRAVITY;
+    y  += vy;
+    x  += vx;
+
+    // floor bounce
+    if (y >= floorY) {
+      y        = floorY;
+      vy       = JUMP_FORCE;          // bounce back up
+      squashRef.current = true;
+    } else {
+      squashRef.current = false;
+    }
+
+    // wall bounce
+    if (x <= minX)  { x = minX;  vx = Math.abs(vx);  }
+    if (x >= maxX)  { x = maxX;  vx = -Math.abs(vx); }
+
+    posRef.current  = { x, y };
+    velRef.current  = { x: vx, y: vy };
+
+    // apply to DOM — bottom is BOTTOM_MARGIN - y  (y is how high above floor)
+    const bottomPx = BOTTOM_MARGIN + (-y);   // y is ≤ 0, so -y ≥ 0 → higher = bigger bottom
+    const scaleX   = squashRef.current ? 1.25 : 1;
+    const scaleY   = squashRef.current ? 0.75 : 1;
+
+    fabRef.current.style.left       = `${x}px`;
+    fabRef.current.style.bottom     = `${bottomPx}px`;
+    fabRef.current.style.right      = "unset";
+    fabRef.current.style.transform  = `scaleX(${scaleX}) scaleY(${scaleY})`;
+
+    rafRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  // start / stop bounce based on open state
+  useEffect(() => {
+    if (open) {
+      // stop bouncing when panel is open
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      // snap to bottom-right corner
+      if (fabRef.current) {
+        fabRef.current.style.left      = "unset";
+        fabRef.current.style.right     = `${BOTTOM_MARGIN}px`;
+        fabRef.current.style.bottom    = `${BOTTOM_MARGIN}px`;
+        fabRef.current.style.transform = "none";
+      }
+    } else {
+      // resume bouncing
+      rafRef.current = requestAnimationFrame(animate);
+    }
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [open, animate]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -197,6 +276,7 @@ export default function Chatbot({ onNavigate }) {
     <div className="chatbot-root">
       {/* ── Floating bot avatar ── */}
       <button
+        ref={fabRef}
         className={`chatbot-fab ${open ? "chatbot-fab-open" : ""}`}
         onClick={() => setOpen((v) => !v)}
         aria-label="Open FreshBot chat"
