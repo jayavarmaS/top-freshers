@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import CoursesPage from "./pages/CoursesPage";
 import ContactPage from "./pages/ContactPage";
 import AllCoursesPage from "./pages/AllCoursesPage";
+import AllJobsPage from "./pages/AllJobsPage";
 import Chatbot from "./components/Chatbot";
 
 export default function App() {
@@ -45,6 +46,8 @@ export default function App() {
         <ContactPage onNavigate={handleNavigate} />
       ) : currentPage === "allcourses" ? (
         <AllCoursesPage onNavigate={handleNavigate} />
+      ) : currentPage === "alljobs" ? (
+        <AllJobsPage onNavigate={handleNavigate} />
       ) : (
         <>
           <Hero onNavigate={handleNavigate} />

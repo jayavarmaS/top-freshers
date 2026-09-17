@@ -40,7 +40,7 @@ export default function JobOpportunities({ onNavigate }) {
         <h2>Fresh Opportunities. Real Careers.</h2>
         <div className="section-actions">
           <p>Explore the latest fresher jobs from top companies and kickstart your career.</p>
-          <button className="text-button" onClick={() => document.getElementById("jobs")?.scrollIntoView({ behavior: "smooth" })}>View All Jobs →</button>
+          <button className="text-button" onClick={() => onNavigate("alljobs")}>View All Jobs →</button>
         </div>
       </div>
 
